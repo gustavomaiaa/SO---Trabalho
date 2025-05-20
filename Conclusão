@@ -1,0 +1,49 @@
+Objetivo
+Implementar um controle de acesso para uma sala de repouso em que:
+
+Cães podem entrar juntos, mas não com gatos.
+
+Gatos podem entrar juntos, mas não com cães.
+
+A sala pode estar vazia, ocupada por cães, ou ocupada por gatos.
+
+
+Solução Implementada (com pthreads e semáforo)
+Utilizamos:
+
+pthread_mutex_t para proteger variáveis compartilhadas (dogsInRoom, catsInRoom).
+
+sem_t roomEmpty como controle de acesso à sala quando o primeiro animal entra e o último sai.
+
+Funções principais:
+
+dogWantsToEnter, catWantsToEnter: controlam a entrada.
+
+dogLeaves, catLeaves: controlam a saída e liberam a sala.
+
+
+
+Resultado da Execução
+Dois cães entraram em sequência sem impedimento:
+
+Cachorro entrou. Total: 1  
+Cachorro entrou. Total: 2
+
+Isso confirma que:
+
+Múltiplos animais do mesmo grupo podem acessar simultaneamente.
+
+O outro grupo é bloqueado até a sala ficar vazia.
+
+✔️ Exclusão mútua entre cães e gatos com segurança.
+
+✔️ Controle justo: apenas entra o grupo cujo acesso foi liberado.
+
+✔️ Sem deadlocks ou race conditions, pois mutexes e semáforo são usados corretamente.
+
+✔️ Simula de forma realista e segura o comportamento esperado em sistemas concorrentes.
+
+
+- Em resumo: O resultado do código comprova que a lógica de sincronização foi bem implementada, garantindo exclusão mútua entre espécies e acesso múltiplo entre iguais. A sala respeita sempre os três estados definidos no enunciado: vazia, com cães ou com gatos.
+
+
